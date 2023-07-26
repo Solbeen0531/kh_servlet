@@ -1,7 +1,7 @@
 package kh.test.jdbckh.student.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.test.jdbckh.student.model.dao.StudentDao;
-import kh.test.jdbckh.student.model.vo.StudentVo;
+import kh.test.jdbckh.student.model.service.StudentService;
 
 /**
  * Servlet implementation class StudentListController
  */
-//@WebServlet({"/student/list","df"})
+//@WebServlet({"/student/list","/df"})
 @WebServlet("/student/list")
 public class StudentListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,7 +37,8 @@ public class StudentListController extends HttpServlet {
 		String searchWord = request.getParameter("searchWord");
 		String pageNoStr = request.getParameter("pageNo");
 		// String > Int 형변환
-		int currentPage = 1;
+		int currentPage = 1; // 현재페이지
+		int pageSize = 10; // 페이지당 개수
 		if (pageNoStr != null) {
 			try {
 				currentPage = Integer.parseInt(pageNoStr);
@@ -50,20 +50,31 @@ public class StudentListController extends HttpServlet {
 		// 2. 전달받은 데이터를 활용해
 		// 2. DB학생 상세 정보 가져오기
 
-		StudentDao dao = new StudentDao();
-		List<StudentVo> result = null;
-		if(searchWord != null) {
+		StudentService service = new StudentService();
+//		List<StudentVo> result = null;
+		Map<String, Object> map = null;
+		if (searchWord != null) {
 			// 검색
-			result = dao.selectListStudent(searchWord);
+//			result = service.selectListStudent(searchWord);
+			map = service.selectListStudent(currentPage, pageSize, searchWord);
 		} else {
 			// 전체
 //			result = dao.selectListStudent();
 			// 페이징
-			result = dao.selectListStudent(currentPage, 10);
+//			result = service.selectListStudent(currentPage, 10);
+			map = service.selectListStudent(currentPage, 10);
 		}
 		// 3. DB로부터 전달받은 데이터를 JSP에 전달함
-		request.setAttribute("studentList", result);
-		if(searchWord != null) {
+		request.setAttribute("studentList", map.get("studentList"));
+
+		// 페이징 -
+		int pageBlockSize = 5;
+		int totalCnt = (Integer) map.get("totalCnt");
+		int totalPageNum = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
+//				int startPageNum = ;
+//				int endPageNum = ;
+
+		if (searchWord != null) {
 			request.setAttribute("searchWord", searchWord);
 		}
 		// 4. JSP파일 forward로 열기
