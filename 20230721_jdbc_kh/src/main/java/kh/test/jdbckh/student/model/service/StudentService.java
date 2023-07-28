@@ -17,12 +17,11 @@ public class StudentService {
 	private StudentDao dao = new StudentDao();
 	
 	public int insertStudent(StudentVo vo) {
-		int result=0;
+		int result = 0;
 		Connection conn = getConnection();
 		result = dao.insertStudent(conn, vo);
 		close(conn);
 		return result;
-		
 	}
 	
 	public StudentVo selectOneStudent(String studentNo) {

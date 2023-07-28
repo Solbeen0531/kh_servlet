@@ -1,18 +1,23 @@
 package kh.test.jdbckh.student.model.vo;
 
-import java.sql.Date;
-
-/**
- * @author user1
- *
- */
 public class StudentVo {
+//	------------------ -------- ------------- 
+//	STUDENT_NO         NOT NULL VARCHAR2(10)  
+//	DEPARTMENT_NO      NOT NULL VARCHAR2(10)  
+//	STUDENT_NAME       NOT NULL VARCHAR2(40)  
+//	STUDENT_SSN                 VARCHAR2(14)  
+//	STUDENT_ADDRESS             VARCHAR2(200) 
+//	ENTRANCE_DATE               DATE          
+//	ABSENCE_YN                  CHAR(1)       
+//	COACH_PROFESSOR_NO          VARCHAR2(20)  
 	private String studentNo;
 	private String departmentNo;
 	private String studentName;
 	private String studentSsn;
 	private String studentAddress;
-	private Date entranceDate;
+	// view에서 입력받은 데이터가 있는 경우 String
+	private String entranceDate;
+	// private Date entranceDate;
 	private String absenceYn;
 	private String coachProfessorNo;
 
@@ -22,18 +27,19 @@ public class StudentVo {
 	}
 
 	public StudentVo(String studentNo, String departmentNo, String studentName, String studentSsn,
-			String studentAddress, String absenceYn, String coachProfessorNo) {
+			String studentAddress, String entranceDate, String absenceYn, String coachProfessorNo) {
 		this.studentNo = studentNo;
 		this.departmentNo = departmentNo;
 		this.studentName = studentName;
 		this.studentSsn = studentSsn;
 		this.studentAddress = studentAddress;
+		this.entranceDate = entranceDate;
 		this.absenceYn = absenceYn;
 		this.coachProfessorNo = coachProfessorNo;
 	}
 
 	public StudentVo(String studentNo, String departmentNo, String studentName, String studentSsn,
-			String studentAddress, Date entranceDate, String absenceYn, String coachProfessorNo,
+			String studentAddress, String entranceDate, String absenceYn, String coachProfessorNo,
 			String departmentName) {
 		this.studentNo = studentNo;
 		this.departmentNo = departmentNo;
@@ -94,11 +100,11 @@ public class StudentVo {
 		this.studentAddress = studentAddress;
 	}
 
-	public Date getEntranceDate() {
+	public String getEntranceDate() {
 		return entranceDate;
 	}
 
-	public void setEntranceDate(Date entranceDate) {
+	public void setEntranceDate(String entranceDate) {
 		this.entranceDate = entranceDate;
 	}
 

@@ -45,6 +45,7 @@
 					<td><input type="text" name="coachProfessorNo"></td>
 				</tr>
 			</table>
+			<button type="submit">학생등록</button>
 		</form>
 	</div>
 

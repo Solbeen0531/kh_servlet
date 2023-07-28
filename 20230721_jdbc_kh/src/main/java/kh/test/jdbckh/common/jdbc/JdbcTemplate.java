@@ -7,51 +7,71 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class JdbcTemplate {
-	private static Connection conn = null; // static 딱 하나만 존재
+	private static Connection conn = null;
 
-	// Singleton 패턴으로 Connection 객체가 많이 생성됨을 방지
+	// Singleton패턴 Connection 객체가 많이 생성됨을 방지
 	public static Connection getConnection() {
 		try {
+			// 1. driver 있다면 로딩함. // 없다면 ClassNotFoundException 오류 발생
 			Class.forName("oracle.jdbc.driver.OracleDriver");
+			// 2. Connection 객체 생성 // dbms와 연결
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "kh", "kh");
-
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		if (conn != null) {
 			System.out.println("DB 연결 성공");
 		} else {
-			System.out.println("~~~DB 연결 실패~~~~");
+			System.out.println("!!!!!!!!!!!DB 연결 실패!!!!!!!!!!!!!!!!!");
+		}
+		return conn;
+	}
+
+	public static Connection getConnectionKhl() {
+		try {
+			// 1. driver 있다면 로딩함. // 없다면 ClassNotFoundException 오류 발생
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			// 2. Connection 객체 생성 // dbms와 연결
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "khl", "khl");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (conn != null) {
+			System.out.println("DB 연결 성공");
+		} else {
+			System.out.println("!!!!!!!!!!!DB 연결 실패!!!!!!!!!!!!!!!!!");
 		}
 		return conn;
 	}
 
 	public static void close(Connection con) {
 		try {
-			if (con != null)
+			if (con != null) {
 				con.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-//	생략 가능 범위
-//	public void close(PreparedStatement pstmt) {
+//	public static void close(PreparedStatement pstmt) {
 //		try {
-//			if (pstmt != null)
+//			if(pstmt!=null) {
 //				pstmt.close();
+//			}
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
 //	}
-
 	public static void close(Statement stmt) {
 		try {
-			if (stmt != null)
+			if (stmt != null) {
 				stmt.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -59,10 +79,36 @@ public class JdbcTemplate {
 
 	public static void close(ResultSet rset) {
 		try {
-			if (rset != null)
+			if (rset != null) {
 				rset.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
+	public static void setAutoCommit(Connection conn, boolean auto) {
+		try {
+			conn.setAutoCommit(auto);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void commit(Connection conn) {
+		try {
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void rollback(Connection conn) {
+		try {
+			conn.rollback();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
