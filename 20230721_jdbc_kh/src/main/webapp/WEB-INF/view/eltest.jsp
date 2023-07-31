@@ -5,13 +5,28 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@String ctxtPath = "/resources/css" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>EL -</title>
+<%-- <link href="<%=ctxtPath %>/resources/css/reset.css" rel="stylesheet"> --%>
+
 </head>
 <body>
+	<img alt="contextpath 없으면 안됨" src="/resources/img/01.jpg">
+	<img alt="jpg 테스트"
+		src="<%=request.getContextPath()%>/resources/img/01.jpg">
+	<img alt="png 테스트"
+		src="<%=request.getContextPath()%>/resources/img/02.png">
+	<img alt="svg 테스트"
+		src="<%=request.getContextPath()%>/resources/img/a.svg">
+
+
+
+
+
 
 	<h2>
 		EL - ExpressionLanguage <br> 단점: java for/if/변수 사용 불가 <br>
@@ -46,11 +61,11 @@
 	<c:forEach items="${volist }" var="vo" varStatus="cnt">
 	${cnt.index},${cnt.count },${vo.bwriteDate }<br>
 	</c:forEach>
-	
-	
-	
-	
-	
+
+
+
+
+
 	<br> ${vo.studentSsn }
 	<hr>
 	${volist.get(2) }
