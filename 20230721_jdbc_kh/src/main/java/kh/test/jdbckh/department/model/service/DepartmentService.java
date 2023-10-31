@@ -7,6 +7,7 @@ import static kh.test.jdbckh.common.jdbc.JdbcTemplate.*;
 
 import kh.test.jdbckh.department.model.dao.DepartmentDao;
 import kh.test.jdbckh.department.model.dto.DepartmentDto;
+import kh.test.jdbckh.department.model.vo.DepartmentVo;
 
 public class DepartmentService {
 	private DepartmentDao dao = new DepartmentDao();
@@ -19,13 +20,13 @@ public class DepartmentService {
 		return result;
 	}
 	// 한 행 읽기 - PK로where조건
-	public DepartmentDto selectOne(String departmentNo){
-		DepartmentDto result = null;
-		Connection conn = getConnection();
-		result = dao.selectOne(conn, departmentNo);
-		close(conn);
-		return result;
-	}
+//	public DepartmentVo selectOne(String departmentNo){
+//		DepartmentDto result = null;
+//		Connection conn = getConnection();
+//		result = dao.selectOne(conn, departmentNo);
+//		close(conn);
+//		return result;
+//	}
 	// 한 행 삽입 - DepartmentDto 자료형을 받아와야 함.
 	public int insert(DepartmentDto dto){
 		int result = 0;

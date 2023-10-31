@@ -31,8 +31,8 @@ public class DepartmentListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DepartmentDao dao = new DepartmentDao();
-		List<DepartmentVo> result = dao.selectDepartmentList();
-		request.setAttribute("departmentList", result);
+//		List<DepartmentVo> result = dao.selectDepartmentList();
+//		request.setAttribute("departmentList", result);
 		
 		request.getRequestDispatcher("/WEB-INF/view/department/list.jsp").forward(request, response);
 	}

@@ -12,38 +12,32 @@ import javax.servlet.http.HttpServletResponse;
 import kh.test.jdbckh.board.model.dto.BoardDto;
 import kh.test.jdbckh.board.model.service.BoardService;
 
-/**
- * Servlet implementation class BoardListServlet
- */
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public BoardListServlet() {
-        super();
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("[sbpark] 세션 attribute");
+		System.out.println(request.getSession().getAttribute("SsLoginId"));
+		System.out.println(request.getAttribute("SsLoginId"));
+		String msg=(String)request.getSession().getAttribute("successFailMsg");
+		if(msg!=null&&!msg.equals("")) {
+			request.setAttribute("sucessFailMsg", msg);
+			request.getSession().removeAttribute("successFailMsg");
+		}
+		
 		// 1. request.getParameter()
 		// 2. service.selectList();
 		List<BoardDto> result = new BoardService().selectList();
-		// 3. 
+		// 3.
 		request.setAttribute("boardList", result);
 		// 4.
 		request.getRequestDispatcher("/WEB-INF/view/board/list.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
